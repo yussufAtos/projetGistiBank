@@ -28,7 +28,7 @@ public class CompteRestController {
 	 @Autowired
 	    CompteService compteService;   //Service which will do all data retrieval/manipulation work
 	 @Autowired
-	   ClientService clientService;
+	   ClientService clientService; 
 	 
 	 @Autowired
 	   OperationService operationService;
