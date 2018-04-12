@@ -34,7 +34,7 @@ public class CompteRestController {
 	   OperationService operationService;
 	  
 	 
-	 //affciher les comptes d'un client
+	 //afficher les comptes d'un client
 	 @RequestMapping(value = "/client/{id}/comptes", method = RequestMethod.GET) //ok
 		public    List<Compte>   trouverComptesClient(@PathVariable int id) {
 	       List<Compte>  listComptes =compteService.findComptesClient(id);
