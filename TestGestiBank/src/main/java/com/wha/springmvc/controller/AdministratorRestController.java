@@ -96,7 +96,7 @@ public class AdministratorRestController {
     
 	
 	
-	 //------------------- Update a User : affecter une demande à un conseiller :  --------------------------------------------------------
+	/* //------------------- Update a User : affecter une demande à un conseiller :  --------------------------------------------------------
     
     @RequestMapping(value = "/user/{id}", method = RequestMethod.PUT)
     public ResponseEntity<User> updateUser(@PathVariable("id") int id, @RequestBody User user) {
@@ -112,11 +112,11 @@ public class AdministratorRestController {
         currentUser.setUsername(user.getUsername());
         currentUser.setAddress(user.getAddress());
         currentUser.setEmail(user.getEmail());
-        currentUser.setAffectation(user.getAffectation());
+       // currentUser.setAffectation(user.getAffectation());
          
         userService.updateUser(currentUser);
         return new ResponseEntity<User>(currentUser, HttpStatus.OK);
-    }
+    }*/
  
 
 }

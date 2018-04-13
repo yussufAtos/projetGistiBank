@@ -20,6 +20,9 @@ public class Administrator extends User {
 	@OneToMany(mappedBy="administrator",fetch = FetchType.EAGER,orphanRemoval = true)
     private Collection<Conseiller> conseillers = new LinkedList<>();
 
+	
+	
+	
 	public Administrator() {
 		super();
 		
@@ -28,7 +31,10 @@ public class Administrator extends User {
 	public Administrator(Collection<Conseiller> conseillers) {
 		super();
 		this.conseillers = conseillers;
+		
 	}
+
+	
 
 	
 

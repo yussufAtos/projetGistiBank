@@ -27,7 +27,7 @@ public  class User implements Serializable {
 	 */
 	private static final long serialVersionUID = 1L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.AUTO)
 	private int id;
 	private String prenom;
 	private String email;
@@ -35,7 +35,7 @@ public  class User implements Serializable {
 	private String pwd;
 	private String address;
 	private String numTel;
-	private int affectation;
+	
 
 	@Column(name="Role", insertable = false, updatable = false)         
     private String Role; 
@@ -44,7 +44,7 @@ public  class User implements Serializable {
 		id=0;
 	}
 	
-	public User(int id, String username, String prenom, String email, String pwd, String address, String numTel, int affectation){
+	public User(int id, String username, String prenom, String email, String pwd, String address, String numTel){
 		this.id = id;
 		this.username = username;
 		this.prenom = prenom;
@@ -52,7 +52,7 @@ public  class User implements Serializable {
 		this.pwd = pwd;
 		this.address = address;
 		this.numTel = numTel;
-		this.affectation=affectation;
+		
 	}
 	
 	
@@ -65,14 +65,9 @@ public  class User implements Serializable {
 		Role = role;
 	}
 
-	public int getAffectation() {
-		return affectation;
-	}
+	
 
-	public void setAffectation(int affectation) {
-		this.affectation = affectation;
-	}
-
+	
 	public int getId() {
 		return id;
 	}

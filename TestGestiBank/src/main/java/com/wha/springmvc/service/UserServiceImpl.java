@@ -41,7 +41,7 @@ public class UserServiceImpl implements UserService{
 		dao.save(user);
 	}
 
-	//affecte une demande d'inscription
+	/*//affecte une demande d'inscription
 	public void updateUser(User user) {
 	
 		
@@ -54,7 +54,7 @@ public class UserServiceImpl implements UserService{
 			
 		}
 		dao.save(entity);
-	}
+	}*/
 
 	public void deleteUserById(long id) {
 

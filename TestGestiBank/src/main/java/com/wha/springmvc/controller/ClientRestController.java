@@ -15,10 +15,13 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.wha.springmvc.model.Client;
+import com.wha.springmvc.model.Conseiller;
 import com.wha.springmvc.model.User;
+import com.wha.springmvc.model.Visitor;
 import com.wha.springmvc.service.ClientService;
 import com.wha.springmvc.service.ConseillerService;
 import com.wha.springmvc.service.UserService;
+import com.wha.springmvc.service.VisitorService;
 
 @RestController
 public class ClientRestController {
@@ -31,6 +34,9 @@ public class ClientRestController {
 	 
 	 @Autowired
 	 UserService userService;
+	 
+	 @Autowired
+	 VisitorService visitorService;
 	
 	
 	 //-------------------Retrieve All Clients --------------------------------------------------------
@@ -65,8 +71,8 @@ public class ClientRestController {
     
 //-------------------Create a Client (avec les demandes d'inscription)--------------------------------------------------------
     
-    @RequestMapping(value = "/conseiller/{id}/user/{idUser}/client/", method = RequestMethod.POST)
-    public ResponseEntity<Void> createClient(@PathVariable int id,@PathVariable int idUser, @RequestBody Client client,    UriComponentsBuilder ucBuilder) {
+    @RequestMapping(value = "/conseiller/{id}/visitor/{idVisitor}/client/", method = RequestMethod.POST)
+    public ResponseEntity<Void> createClient(@PathVariable int id,@PathVariable int idVisitor, @RequestBody Client client,    UriComponentsBuilder ucBuilder) {
         System.out.println("Creating Client " + client.getUsername() + client.getEmail()+ client.getAddress());
  
         if (clientService.isUserExist(client)) {
@@ -74,19 +80,21 @@ public class ClientRestController {
             return new ResponseEntity<Void>(HttpStatus.CONFLICT);
         }
         
-        User c = userService.findById(idUser);
+        Visitor v = visitorService.findByIdVisitor(idVisitor);
+       
+        Conseiller conse = conseillerService.findById(v.getAffectation());
  
         client.setConseiller(conseillerService.findById(id));
-        client.setPrenom(c.getPrenom());
-        client.setEmail(c.getEmail());
-        client.setNumTel(c.getNumTel());
+        client.setPrenom(v.getPrenom());
+        client.setEmail(v.getEmail());
+        client.setNumTel(v.getNumTel());
         client.setUsername(client.getUsername());
         client.setPwd(client.getPwd());
-       
+        client.setConseiller(conse);
         
         clientService.saveClient(client);
         
-        userService.deleteUserById(idUser);
+        visitorService.deleteVisitorById(idVisitor);
     
  
         HttpHeaders headers = new HttpHeaders();
