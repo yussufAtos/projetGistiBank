@@ -20,7 +20,7 @@ public interface UserService {
 	
 	void deleteUserById(long id);
 
-	Collection<User> findAllUsers(String type); 
+	Collection<User> findAllUsers( ); 
 	
 	//affiche toutes les affecations
 		Collection<User> findAllAffectedUsers(int affectation);

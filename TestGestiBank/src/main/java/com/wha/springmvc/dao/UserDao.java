@@ -15,7 +15,7 @@ public interface UserDao {
 	void deleteUserById(int id);
 	
 	//affiche toutes les demandes
-	Collection<User> findAllUsers(String type);
+	Collection<User> findAllUsers( );
 	
 	//affiche toutes les affecations
 	Collection<User> findAllAffectedUsers(int affectation);

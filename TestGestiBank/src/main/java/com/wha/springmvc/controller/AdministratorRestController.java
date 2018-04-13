@@ -35,7 +35,7 @@ public class AdministratorRestController {
 	// Admins--------------------------------------------------------
 
 	@RequestMapping(value = "/administrators/", method = RequestMethod.GET)
-	public ResponseEntity<Collection<Administrator>> listAllUsers() {
+	public ResponseEntity<Collection<Administrator>> listAllAdmins() {
 
 		Collection<Administrator> admins = administratorService.findAllAdministrators();
 
@@ -85,9 +85,9 @@ public class AdministratorRestController {
 	 
     //-------------------Retrieve All Users: les demandes d'inscription--------------------------------------------------------
      
-    @RequestMapping(value = "/user/{type}", method = RequestMethod.GET)
-    public ResponseEntity<Collection<User>> listAllUsers(@PathVariable("type") String role) {
-        Collection<User> users = userService.findAllUsers(role);
+    @RequestMapping(value = "/user/", method = RequestMethod.GET)
+    public ResponseEntity<Collection<User>> listAllUsers() {
+        Collection<User> users = userService.findAllUsers();
         if(users.isEmpty()){
             return new ResponseEntity<Collection<User>>(HttpStatus.NO_CONTENT);//You many decide to return HttpStatus.NOT_FOUND
         }

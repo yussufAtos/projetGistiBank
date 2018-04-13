@@ -1,6 +1,5 @@
 package com.wha.springmvc.service;
 
-import java.sql.SQLException;
 import java.util.Collection;
 
 import javax.transaction.Transactional;
@@ -22,9 +21,9 @@ public class UserServiceImpl implements UserService{
 	
 	
 
-	public Collection<User> findAllUsers(String type) {
+	public Collection<User> findAllUsers( ) {
 	
-		return dao.findAllUsers((String) type);
+		return dao.findAllUsers( );
 	}
 	
 	public User findById(long id) {
@@ -81,6 +80,7 @@ public class UserServiceImpl implements UserService{
 	public Collection<User> findAllAffectedUsers(int affectation) {
 		return dao.findAllAffectedUsers((int) affectation);
 	}
+
 
 	
 

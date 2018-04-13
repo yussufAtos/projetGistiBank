@@ -48,9 +48,20 @@ public class UserDaoImpl extends AbstractDao<Integer, User> implements UserDao {
 
 	//affiche toutes les demandes
 	@SuppressWarnings("unchecked")
-	public Collection<User> findAllUsers(String type) {
-		List<User> users = getEntityManager().createQuery("SELECT u FROM User u WHERE u.Role LIKE :role ORDER BY u.username ASC").setParameter("role", type).getResultList();				
+	public Collection<User> findAllUsers() {
+		List<User> users = getEntityManager().createQuery("SELECT u FROM User u").getResultList();				
+		
+					if (users instanceof User) {
+						
+						users.iterator();
+						return users;
+						
+					}
+		
 		return users;
+		
+		
+		
 	}
 
 	
