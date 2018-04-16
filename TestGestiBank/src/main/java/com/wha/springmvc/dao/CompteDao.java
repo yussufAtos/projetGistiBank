@@ -11,14 +11,12 @@ public interface CompteDao {
 	
 	
 
-	List<Compte> findAllComptes();
-	Compte findCompteById(int id1,int id2);
+
+
 	List<Compte> findComptesClient(int id);
 	
+	Compte findCompteById(int id);
 	
-	
-	List<Compte> findAllComptesRemunateurs();
-	List<Compte> findAllComptesCourant();
   
 
 	CompteRemunerateur saveCompteRemunerateur(CompteRemunerateur cr);

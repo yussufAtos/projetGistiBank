@@ -80,25 +80,41 @@ public class CompteRestController {
 			compteService.saveCompteRemunerateur(compteRem);
 		}
 	 
+	// creer un credit
+	 
+	 @RequestMapping(value = "/compte/{id}/credit", method = RequestMethod.POST)
+	 public void savecredit(@PathVariable int id, @RequestBody Credit credit )
+	 
+	 {
+		 Compte cp =compteService.findCompteById(id);
+		 
+		 cp.setSolde(cp.getSolde()+credit.getMontant());
+		 compteService.saveCompte(cp);
+		 operationService.saveOperation(credit);
+		 
+		 
+	 }
+	 
+	 
 	 //faire une transaction
-	 @RequestMapping(value = "/client/{id1}/compte/{id2}/operations", method = RequestMethod.POST)
-		public void saveoperation(@PathVariable int id1, @PathVariable int id2, @RequestBody Operation op) {
-			
-			Client client = clientService.findById(id1);
-	        Compte compte = compteService.findCompteById(id2, id1);
-	        if (op instanceof Credit) {
-	        	compte.setSolde(compte.getSolde() + op.getMontant());
-	        	op.setDateEffet(new Date());
-	        }else {
-	        	compte.setSolde(compte.getSolde() - op.getMontant());
-	        	op.setDateEffet(new Date());
-	        }
-			op.setCompte(compte);
-			//credit.setDateEffet(new Date());
-			compteService.saveCompte(compte);
-			operationService.saveOperation(op);
-		
-		}
+//	 @RequestMapping(value = "/client/{id1}/compte/{id2}/operations", method = RequestMethod.POST)
+//		public void saveoperation(@PathVariable int id1, @PathVariable int id2, @RequestBody Operation op) {
+//			
+//			Client client = clientService.findById(id1);
+//	        Compte compte = compteService.findCompteById(id2, id1);
+//	        if (op instanceof Credit) {
+//	        	compte.setSolde(compte.getSolde() + op.getMontant());
+//	        	op.setDateEffet(new Date());
+//	        }else {
+//	        	compte.setSolde(compte.getSolde() - op.getMontant());
+//	        	op.setDateEffet(new Date());
+//	        }
+//			op.setCompte(compte);
+//			//credit.setDateEffet(new Date());
+//			compteService.saveCompte(compte);
+//			operationService.saveOperation(op);
+//		
+//		}
 	 
 	 
 	 

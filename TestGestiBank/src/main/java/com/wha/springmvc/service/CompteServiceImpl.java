@@ -25,20 +25,6 @@ public class CompteServiceImpl implements CompteService {
 	private CompteDao compteDao ;
 
 
-	@Override
-	public Compte  findCompteById(int id1,int id2) {
-		return compteDao.findCompteById(id1,id2);
-	}
-
-	@Override
-	public List<Compte> findAllComptesRemunateurs() {
-		return compteDao.findAllComptesRemunateurs();
-	}
-
-	@Override
-	public List<Compte> findAllComptesCourant() {
-		return compteDao.findAllComptesCourant();
-	}
 
 	@Override
 	public CompteRemunerateur saveCompteRemunerateur(CompteRemunerateur cr) {
@@ -60,11 +46,12 @@ public class CompteServiceImpl implements CompteService {
 	}
 
 	@Override
-	public List<Compte> findAllComptes() {
+	public Compte findCompteById(int id) {
 		// TODO Auto-generated method stub
-		return null;
+		return compteDao.findCompteById(id);
 	}
-	
+
+
 	
 	
 

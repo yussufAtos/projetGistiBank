@@ -9,14 +9,10 @@ import com.wha.springmvc.model.CompteRemunerateur;
 public interface CompteService {
 	
 	
-	List<Compte> findAllComptes();
-	Compte findCompteById(int id1,int id2);
-	
-	List<Compte> findComptesClient(int id);
-	
 
-    List<Compte> findAllComptesRemunateurs();
-	List<Compte> findAllComptesCourant();
+	Compte findCompteById(int id);
+	List<Compte> findComptesClient(int id);
+
   
 
 	CompteRemunerateur saveCompteRemunerateur(CompteRemunerateur cr);

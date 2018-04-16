@@ -18,39 +18,12 @@ public class CompteDaoImpl extends AbstractDao<Integer, Compte> implements Compt
 		return Comptes;
 	}
 
-//	@Override
-//	public Compte findCompteById(int id) {
-//		Compte compte = getByKey(id);
-//		return compte;
-//	}
-	
-//	
-//	@Override
-//	public Compte findCompteById(int id1 ,int id2) {
-//		Compte compte = getEntityManager().createQuery("SELECT cp FROM Compte cp where cp.numeroCompte= :idcompte and cp.client.id = :idcli")
-//				.setParameter("idcompte", id1)
-//				.setParameter("idcli", id2)
-//				.getSingleResult();
-//		return compte;
-//		
-//		
-//	}
-//	
 	@Override
-	public Compte findCompteById(int id1 ,int id2) {
-Compte compte = (Compte) getEntityManager().createQuery("SELECT cp FROM Compte cp where id_client="+id1 +"and numeroCompte="+id2).getSingleResult();
+	public Compte findCompteById(int id) {
+		Compte compte = getByKey(id);
 		return compte;
-		
-		
-		/*  "SELECT c FROM Customer c WHERE c.name LIKE :custName")
-        .setParameter("custName", name)
-        .getResultList();*/
 	}
-	
-
-	
-
-	@Override
+@Override
 	public CompteCourant saveCompteCourant(CompteCourant cpc) {
 		// TODO Auto-generated method stub
 		persist(cpc);
@@ -58,26 +31,7 @@ Compte compte = (Compte) getEntityManager().createQuery("SELECT cp FROM Compte c
 
 	}
 
-	@SuppressWarnings("unchecked")
-	
-	public List<Compte> findAllComptesRemunateurs() {
-		List<Compte> ComptesRemun = getEntityManager().createQuery("SELECT cr FROM Compte cr where type_compte='CR' ")
-				.getResultList();
-		return ComptesRemun;
-
-	}
-	
-
-	@SuppressWarnings("unchecked")
-
-	public List<Compte> findAllComptesCourant() {
-		List<Compte> ComptesRemun = getEntityManager().createQuery("SELECT cr FROM Compte cr where type_compte='CC' ")
-				.getResultList();
-		return ComptesRemun;
-
-	}
-
-	@Override
+        @Override
 	public CompteRemunerateur saveCompteRemunerateur(CompteRemunerateur cr) {
 		persist(cr);
 		return cr;
