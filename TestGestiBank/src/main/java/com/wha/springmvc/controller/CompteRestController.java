@@ -15,6 +15,7 @@ import com.wha.springmvc.model.Compte;
 import com.wha.springmvc.model.CompteCourant;
 import com.wha.springmvc.model.CompteRemunerateur;
 import com.wha.springmvc.model.Credit;
+import com.wha.springmvc.model.Debit;
 import com.wha.springmvc.model.Operation;
 import com.wha.springmvc.service.ClientService;
 import com.wha.springmvc.service.CompteService;
@@ -34,7 +35,7 @@ public class CompteRestController {
 	   OperationService operationService;
 	  
 	 
-	 //afficher les comptes d'un client
+	 //****************afficher les comptes d'un client***************//
 	 @RequestMapping(value = "/client/{id}/comptes", method = RequestMethod.GET) //ok
 		public    List<Compte>   trouverComptesClient(@PathVariable int id) {
 	       List<Compte>  listComptes =compteService.findComptesClient(id);
@@ -43,7 +44,7 @@ public class CompteRestController {
 		}
 	 
 	 
-	 //afficher les operations d'un compte client
+	 //**************afficher les operations d'un compte client*********************//
 	 @RequestMapping(value = "client/compte/{id}", method = RequestMethod.GET) //ok
 		public List<Operation> trouveOperaionsClient(@PathVariable int id) {
 			
@@ -53,7 +54,7 @@ public class CompteRestController {
 			return operationService.findOprationsCompte(id);
 		}
 	 
-	 //creation d'un compte
+	 //************creation d'un compte*******************//
 	 @RequestMapping(value = "/client/{id}/compte", method = RequestMethod.POST) //  ?? 
 		public void savecompte(@PathVariable int id, @RequestBody Compte compte) {
 			Client cl = clientService.findById(id);
@@ -62,60 +63,43 @@ public class CompteRestController {
 			compteService.saveCompte(compte);
 		}
 	 
-	 //creation d'un compte courant
+	 //**************Creation d'un Compte Courant*************//
 	 @RequestMapping(value = "/client/{id}/compteCourant", method = RequestMethod.POST) //  ?? 
-		public void savecompteCourant(@PathVariable int id, @RequestBody CompteCourant compteCou) {
+		public void savecompteCourant(@PathVariable int id, @RequestBody CompteCourant CompteCourant) {
 			Client cl = clientService.findById(id);
-			compteCou.setClient(cl);
-			compteCou.setDateCreation(new Date());
-			compteService.saveCompteCourant(compteCou);
+			CompteCourant.setClient(cl);
+			CompteCourant.setDateCreation(new Date());
+			compteService.saveCompte(CompteCourant);
 		}
 	 
-	 //creation d'un compte rémunérateur
+	 //**********Creation d'un Compte Rémunérateur**************//
 	 @RequestMapping(value = "/client/{id}/compteRemunerateur", method = RequestMethod.POST) //  ?? 
 		public void savecompteRemunerateur(@PathVariable int id, @RequestBody CompteRemunerateur compteRem) {
 			Client cl = clientService.findById(id);
 			compteRem.setClient(cl);
 			compteRem.setDateCreation(new Date());
-			compteService.saveCompteRemunerateur(compteRem);
+			compteService.saveCompte(compteRem);
 		}
 	 
-	// creer un credit
-	 
-	 @RequestMapping(value = "/compte/{id}/credit", method = RequestMethod.POST)
-	 public void savecredit(@PathVariable int id, @RequestBody Credit credit )
-	 
-	 {
-		 Compte cp =compteService.findCompteById(id);
-		 
-		 cp.setSolde(cp.getSolde()+credit.getMontant());
-		 compteService.saveCompte(cp);
-		 operationService.saveOperation(credit);
-		 
-		 
-	 }
-	 
-	 
-	 //faire une transaction
-//	 @RequestMapping(value = "/client/{id1}/compte/{id2}/operations", method = RequestMethod.POST)
-//		public void saveoperation(@PathVariable int id1, @PathVariable int id2, @RequestBody Operation op) {
-//			
-//			Client client = clientService.findById(id1);
-//	        Compte compte = compteService.findCompteById(id2, id1);
-//	        if (op instanceof Credit) {
-//	        	compte.setSolde(compte.getSolde() + op.getMontant());
-//	        	op.setDateEffet(new Date());
-//	        }else {
-//	        	compte.setSolde(compte.getSolde() - op.getMontant());
-//	        	op.setDateEffet(new Date());
-//	        }
-//			op.setCompte(compte);
-//			//credit.setDateEffet(new Date());
-//			compteService.saveCompte(compte);
-//			operationService.saveOperation(op);
-//		
-//		}
-	 
+		//*****************creation d'un credit  ***************//
+		@RequestMapping(value = "/compte/{id}/credit", method = RequestMethod.POST)
+		public void saveoperation(@PathVariable int id, @RequestBody Credit credit) {
+			Compte compte =compteService.findCompteById(id);
+			operationService.crediterCompte(compte, credit);;
+	        compteService.updatcompte(compte);
+	        operationService.saveOperation(credit);
+		}
+
+		// **************creation d'un debit ********************//
+		
+		@RequestMapping(value = "/compte/{id}/debit", method = RequestMethod.POST)
+		public void saveoperation(@PathVariable int id, @RequestBody Debit debit) {
+		    Compte compte =compteService.findCompteById(id);
+	        operationService.debiterCompte(compte, debit);
+			compteService.updatcompte(compte);
+	        operationService.saveOperation(debit);
+		}
+
 	 
 	 
 	 

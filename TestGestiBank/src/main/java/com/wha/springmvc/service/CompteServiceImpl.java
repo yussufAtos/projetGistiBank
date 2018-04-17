@@ -11,6 +11,7 @@ import com.wha.springmvc.dao.CompteDao;
 import com.wha.springmvc.model.Compte;
 import com.wha.springmvc.model.CompteCourant;
 import com.wha.springmvc.model.CompteRemunerateur;
+import com.wha.springmvc.model.Debit;
 
 
 @Service("compteService")
@@ -19,22 +20,9 @@ import com.wha.springmvc.model.CompteRemunerateur;
 public class CompteServiceImpl implements CompteService {
 	
 	
-
-	
-	@Autowired
+    @Autowired
 	private CompteDao compteDao ;
-
-
-
-	@Override
-	public CompteRemunerateur saveCompteRemunerateur(CompteRemunerateur cr) {
-		return compteDao.saveCompteRemunerateur(cr);
-	}
-
-	@Override
-	public CompteCourant saveCompteCourant(CompteCourant cpc) {
-		return compteDao.saveCompteCourant(cpc);
-	}
+ 
 	public Compte saveCompte(Compte compte) {
 		return compteDao.saveCompte(compte);
 	}
@@ -50,6 +38,14 @@ public class CompteServiceImpl implements CompteService {
 		// TODO Auto-generated method stub
 		return compteDao.findCompteById(id);
 	}
+
+	@Override
+	public void updatcompte(Compte compte) {
+		compteDao.updateCompte(compte);
+		
+	}
+
+	
 
 
 	

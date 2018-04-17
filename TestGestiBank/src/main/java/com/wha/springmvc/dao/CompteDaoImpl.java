@@ -7,6 +7,7 @@ import org.springframework.stereotype.Repository;
 import com.wha.springmvc.model.Compte;
 import com.wha.springmvc.model.CompteCourant;
 import com.wha.springmvc.model.CompteRemunerateur;
+import com.wha.springmvc.model.Debit;
 
 @Repository("compteDao")
 public class CompteDaoImpl extends AbstractDao<Integer, Compte> implements CompteDao {
@@ -23,18 +24,12 @@ public class CompteDaoImpl extends AbstractDao<Integer, Compte> implements Compt
 		Compte compte = getByKey(id);
 		return compte;
 	}
-@Override
-	public CompteCourant saveCompteCourant(CompteCourant cpc) {
-		// TODO Auto-generated method stub
-		persist(cpc);
-		return cpc;
 
-	}
+	@Override
+	public void updateCompte(Compte compte) {
 
-        @Override
-	public CompteRemunerateur saveCompteRemunerateur(CompteRemunerateur cr) {
-		persist(cr);
-		return cr;
+		update(compte);
+
 	}
 
 	@Override
@@ -44,13 +39,15 @@ public class CompteDaoImpl extends AbstractDao<Integer, Compte> implements Compt
 	}
 
 	@SuppressWarnings("unchecked")
-	
+
 	public List<Compte> findComptesClient(int id) {
 		// TODO Auto-generated method stub
-List<Compte> listComptes=  getEntityManager().createQuery("SELECT cp FROM Compte cp where cp.client.id = :idcli")
-				.setParameter("idcli", id).getResultList();
-		
+		List<Compte> listComptes = getEntityManager()
+				.createQuery("SELECT cp FROM Compte cp where cp.client.id = :idcli").setParameter("idcli", id)
+				.getResultList();
+
 		return listComptes;
 	}
+
 
 }

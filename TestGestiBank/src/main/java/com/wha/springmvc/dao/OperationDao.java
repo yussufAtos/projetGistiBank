@@ -11,17 +11,8 @@ public interface OperationDao {
 	
 	
 	List<Operation> findOprationsCompte(int id );
-	
-	
-	void depot(Compte cp ,double montant);
-	
-	void rentrait();
-	
-	Debit saveDebit(Debit debit);
-	Credit saveCredit(Credit credit);
-	
-	List<Operation> findAllOperation();
-	
-	Operation saveOperation(Operation op);
+     Operation saveOperation(Operation op);
+	void debiterCompte(Compte compte, Debit debit);
+	void crediterCompte(Compte compte, Credit credit);
 	
 }

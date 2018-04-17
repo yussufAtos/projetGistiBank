@@ -1,18 +1,14 @@
 package com.wha.springmvc.service;
 
 import java.util.List;
-
 import javax.transaction.Transactional;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import com.wha.springmvc.dao.CompteDao;
 import com.wha.springmvc.dao.OperationDao;
+import com.wha.springmvc.model.Compte;
 import com.wha.springmvc.model.Credit;
 import com.wha.springmvc.model.Debit;
 import com.wha.springmvc.model.Operation;
-
 
 @Service("operationService")
 @Transactional
@@ -20,44 +16,12 @@ import com.wha.springmvc.model.Operation;
 public class OperationServiceImpl implements OperationService {
 
 	@Autowired
-	private OperationDao  operationDao ;
-	
-	
-	
-	@Override
-	public void depot() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void rentrait() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Debit saveDebit(Debit debit) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Credit saveCredit(Credit credit) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public List<Operation> findAllOperation() {
-		return operationDao.findAllOperation();
-	
-	}
+	private OperationDao operationDao;
 
 	@Override
 	public Operation saveOperation(Operation op) {
 		return operationDao.saveOperation(op);
-	
+
 	}
 
 	@Override
@@ -65,9 +29,17 @@ public class OperationServiceImpl implements OperationService {
 		// TODO Auto-generated method stub
 		return operationDao.findOprationsCompte(id);
 	}
-	
-	
-	
-	
+
+	@Override
+	public void debiterCompte(Compte compte, Debit debit) {
+		// TODO Auto-generated method stub
+		operationDao.debiterCompte(compte, debit);
+	}
+
+	@Override
+	public void crediterCompte(Compte compte, Credit credit) {
+		// TODO Auto-generated method stub
+		operationDao.crediterCompte(compte, credit);
+	}
 
 }

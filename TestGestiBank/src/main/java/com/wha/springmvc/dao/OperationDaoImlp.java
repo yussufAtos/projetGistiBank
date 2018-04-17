@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.stereotype.Repository;
 
 import com.wha.springmvc.model.Compte;
+import com.wha.springmvc.model.CompteCourant;
 import com.wha.springmvc.model.Credit;
 import com.wha.springmvc.model.Debit;
 import com.wha.springmvc.model.Operation;
@@ -14,43 +15,7 @@ public class OperationDaoImlp extends AbstractDao<Integer, Operation> implements
 
 	@SuppressWarnings("unchecked")
 
-	@Override
-	public void rentrait() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public Debit saveDebit(Debit debit) {
-		persist(debit);
-		return debit;
-	}
-
-	@Override
-	public Credit saveCredit(Credit credit) {
-		persist(credit);
-		return credit;
-	}
-
-	@Override
-	public List<Operation> findAllOperation() {
-		List<Operation> list = getEntityManager().createQuery("SELECT op FROM Operation op ").getResultList();;
-		return list;
-}
-
-	@Override
-	public void depot(Compte cp, double montant) {
-		// TODO Auto-generated method stub
-		
-	double solde=cp.getSolde();
-	solde=cp.getSolde()+montant;
-	cp.setSolde(solde);
-	Credit credit =new Credit( new Date(),montant ,"libelle1",cp);
-	
-	
-	}
-
-	@Override
+    @Override
 	public Operation saveOperation(Operation op) {
 		persist(op);
 		return op;
@@ -64,6 +29,34 @@ public class OperationDaoImlp extends AbstractDao<Integer, Operation> implements
 				.setParameter("idcompte", id).getResultList();		
 		
 		return listOperations;
+	}
+
+	@Override
+	public void debiterCompte(Compte compte, Debit debit) {
+		// TODO Auto-generated method stub
+
+		double decouvert=0;
+		if(compte instanceof CompteCourant )
+			decouvert =((CompteCourant) compte).getDecouvert();
+		
+		
+		if(compte.getSolde()-debit.getMontant()>decouvert) {
+		compte.setSolde(compte.getSolde() - debit.getMontant());
+		debit.setCompte(compte);
+		}
+		else {
+			
+			throw new RuntimeException("Solde insuffisant");
+		}
+
+	}
+
+	@Override
+	public void crediterCompte(Compte compte,Credit credit) {
+		// TODO Auto-generated method stub
+		compte.setSolde(compte.getSolde() + credit.getMontant());
+		credit.setCompte(compte);
+
 	}
 
 	
