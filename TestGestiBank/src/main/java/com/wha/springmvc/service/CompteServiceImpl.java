@@ -45,6 +45,12 @@ public class CompteServiceImpl implements CompteService {
 		
 	}
 
+	@Override
+	public void deleteCompte(int id) {
+		// TODO Auto-generated method stub
+		compteDao.deleteCompte(id);
+	}
+
 	
 
 

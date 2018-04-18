@@ -8,6 +8,7 @@ import com.wha.springmvc.model.Compte;
 import com.wha.springmvc.model.CompteCourant;
 import com.wha.springmvc.model.CompteRemunerateur;
 import com.wha.springmvc.model.Debit;
+import com.wha.springmvc.model.User;
 
 @Repository("compteDao")
 public class CompteDaoImpl extends AbstractDao<Integer, Compte> implements CompteDao {
@@ -47,6 +48,13 @@ public class CompteDaoImpl extends AbstractDao<Integer, Compte> implements Compt
 				.getResultList();
 
 		return listComptes;
+	}
+
+	@Override
+	public void deleteCompte(int id) {
+		// TODO Auto-generated method stub
+		Compte  compte = getByKey(id);
+		delete(compte);
 	}
 
 

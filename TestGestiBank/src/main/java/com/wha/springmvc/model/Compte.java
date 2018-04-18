@@ -90,11 +90,7 @@ public class Compte implements Serializable {
 	 public int getNumeroCompte() {
 	 return numeroCompte;
 	 }
-	//
-	//
-	//
-	//
-	//
+
 	// public void setNumeroCompte(int numeroCompte) {
 	// this.numeroCompte = numeroCompte;
 	// }

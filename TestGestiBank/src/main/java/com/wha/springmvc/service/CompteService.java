@@ -15,6 +15,6 @@ public interface CompteService {
 	List<Compte> findComptesClient(int id);
     Compte saveCompte(Compte compte);
 	void updatcompte(Compte compte) ;
-
+	void deleteCompte(int id);
 	
 }

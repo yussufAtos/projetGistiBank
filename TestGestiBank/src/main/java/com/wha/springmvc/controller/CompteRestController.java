@@ -4,6 +4,8 @@ import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -82,7 +84,7 @@ public class CompteRestController {
 		}
 	 
 		//*****************creation d'un credit  ***************//
-		@RequestMapping(value = "/compte/{id}/credit", method = RequestMethod.POST)
+		@RequestMapping(value = "client/compte/{id}/credit", method = RequestMethod.POST)
 		public void saveoperation(@PathVariable int id, @RequestBody Credit credit) {
 			Compte compte =compteService.findCompteById(id);
 			operationService.crediterCompte(compte, credit);;
@@ -92,15 +94,27 @@ public class CompteRestController {
 
 		// **************creation d'un debit ********************//
 		
-		@RequestMapping(value = "/compte/{id}/debit", method = RequestMethod.POST)
+		@RequestMapping(value = "client/compte/{id}/debit", method = RequestMethod.POST)
 		public void saveoperation(@PathVariable int id, @RequestBody Debit debit) {
 		    Compte compte =compteService.findCompteById(id);
 	        operationService.debiterCompte(compte, debit);
 			compteService.updatcompte(compte);
 	        operationService.saveOperation(debit);
 		}
-
-	 
+            //***************** supprimer un compte ***************//
+	     
+	    @RequestMapping(value = "/client/compte/{id}", method = RequestMethod.DELETE)
+	    public ResponseEntity<Client> deleteClient(@PathVariable("id") int id) {
+	        System.out.println("Fetching & Deleting Compte with id " + id);
+	 Compte compte  = compteService.findCompteById(id);
+	        if (compte == null) {
+	            System.out.println("Unable to delete. compte with id " + id + " not found");
+	            return new ResponseEntity<Client>(HttpStatus.NOT_FOUND);
+	        }
+	        compteService.deleteCompte(id);
+	       
+	        return new ResponseEntity<Client>(HttpStatus.NO_CONTENT);
+	    }
 	 
 	 
 }

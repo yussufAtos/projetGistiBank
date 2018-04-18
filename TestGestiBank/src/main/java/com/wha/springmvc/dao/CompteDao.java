@@ -14,6 +14,7 @@ void updateCompte(Compte compte) ;
 List<Compte> findComptesClient(int id);
 Compte findCompteById(int id);
 Compte saveCompte(Compte compte);
+void deleteCompte(int id);
 	
 
 
